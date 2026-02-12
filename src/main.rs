@@ -1,11 +1,11 @@
+use crate::adapters::adapters_channel;
+
 mod adapters;
 mod api;
 mod ports;
 
-use adapters::iced_notification::channel;
-
 fn main() -> iced::Result {
-    let (adapter, daemon) = channel();
+    let (adapter, daemon) = adapters_channel();
 
     let server_adapter = adapter.clone();
 

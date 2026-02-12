@@ -7,6 +7,6 @@ pub struct ValidationRequest {
 }
 
 #[async_trait]
-pub trait NotificationPort {
+pub trait NotificationPort: Send + Sync {
     async fn request_validation(&self, request: ValidationRequest) -> bool;
 }
