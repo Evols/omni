@@ -9,3 +9,5 @@ reqwest = "0.13.2"
 async-trait = "0.1.83"
 tokio = { version = "1.44.0", features = ["macros", "rt-multi-thread", "time", "net"] }
 axum = "0.8"
+serde = { version = "1.0.228", features = ["derive"] }
+anyhow = "1.0.101"

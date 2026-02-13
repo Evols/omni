@@ -2,6 +2,7 @@ use std::sync::Arc;
 
 use crate::ports::notification::NotificationPort;
 
+mod database;
 pub mod notification;
 
 #[derive(Clone)]
