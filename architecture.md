@@ -77,3 +77,8 @@ or to tamper with it (breaking integrity).
 
 Modern hardware and OS offer ways to prevent users from reading the secrets. TPM, VBS, Secure Enclave, etc. These are,
 however, not magic and come with trade-offs that must be accounted-for.
+
+For all platforms, the database is encrypted using a decryption key (DEK).
+The DEK is encrypted using a TPM key (or equivalent).
+The encrypted DEK is stored on disk, alongside the encrypted database.
+This way, the TPM is only used once to decrypt the DEK, not every time we need to decrypt the database.
