@@ -43,3 +43,25 @@ Lua functions handle connection data, that are sensitive. Consequently, Lua func
 make sure they aren't modified (an attacker could modify the Lua functions to leak the connection data).
 To achieve that, users "install" the Lua scripts in Omni. Omni then stores a hash of the scripts and checks the Lua
 scripts' hash before executing them.
+
+## Connecting to Omni
+
+Clients connect to Omni to send request. Each client has permissions to perform requests using some connections.
+We also want to audit which clients performed what requests.
+So we need to authenticate clients. We use OAuth, with the client credentials flow.
+This plays nicely with the two-database system: we don't have to store the client secret, we can just store a KDF.
+
+Even though we bother using authentication for clients, we should keep in mind that agents will typically store the
+client secret on disk, where it can be read by other clients.
+So clients can easily impersonate each other, and the permissions are not secure.
+This is basically security by obfuscation, aka no security.
+
+In a typical OAuth2 client credentials fashion, the client first asks for an access token, then uses this access token
+in requests.
+As access token generation is cheap, they will have a very short lifespan, of 1 minute.
+
+Additionally, to manage connections, authenticate connections to the API, manage clients, and their permissions,
+Omni provides a management API.
+It is authenticated using access tokens. Clients ask for an access token via the API, which then prompts the user
+for confirmation (Windows Hello, etc). Once the user confirms, an access token is sent to the client.
+This authorization prcess is OAuth2 compatible, but not OAuth2 compliant.
