@@ -2,9 +2,9 @@
 
 ## Constraints
 
-Omni is a client that sends requests to APIs, and attaches authentication to the requests. To achieve that,
-Omni stores the secrets (credentials, access tokens, etc), and they must remain confidential. So the main security
-constraint is confidentiality.
+Omni is a middleware that sends requests to APIs on behalf of the clients, and attaches authentication to the requests.
+To achieve that, Omni stores the secrets (credentials, access tokens, etc), and they must remain confidential.
+So the main security constraint is confidentiality.
 
 We want to keep these secure from local AI agents.
 They are on the same machine, as the same user, they can run arbitrary code, and download ready-made malwares.
