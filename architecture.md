@@ -64,4 +64,4 @@ Additionally, to manage connections, authenticate connections to the API, manage
 Omni provides a management API.
 It is authenticated using access tokens. Clients ask for an access token via the API, which then prompts the user
 for confirmation (Windows Hello, etc). Once the user confirms, an access token is sent to the client.
-This authorization prcess is OAuth2 compatible, but not OAuth2 compliant.
+This authorization process is OAuth2 compatible, but not OAuth2 compliant.
