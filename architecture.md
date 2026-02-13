@@ -65,3 +65,15 @@ Omni provides a management API.
 It is authenticated using access tokens. Clients ask for an access token via the API, which then prompts the user
 for confirmation (Windows Hello, etc). Once the user confirms, an access token is sent to the client.
 This authorization process is OAuth2 compatible, but not OAuth2 compliant.
+
+## The database
+
+The main challenge with Omni is its database: we must store a database on a machine that is possibly compromised.
+Classic crypto primitives don't work: malwares have the same rights as Omni, or even higher rights, in the same machine,
+logged-in as the same user.
+
+We then have to be quite creative to prevent malicious AI agents from reading our database (breaking confidentiality)
+or to tamper with it (breaking integrity).
+
+Modern hardware and OS offer ways to prevent users from reading the secrets. TPM, VBS, Secure Enclave, etc. These are,
+however, not magic and come with trade-offs that must be accounted-for.
