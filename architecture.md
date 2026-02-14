@@ -82,3 +82,23 @@ For all platforms, the database is encrypted using a decryption key (DEK).
 The DEK is encrypted using a TPM key (or equivalent).
 The encrypted DEK is stored on disk, alongside the encrypted database.
 This way, the TPM is only used once to decrypt the DEK, not every time we need to decrypt the database.
+
+### Windows
+
+On Windows, the encrypted DEK is stored on disk, alongside the database.
+
+The KEK is stored inside the TPM, as an asymmetric key.
+It is gated by Windows Hello, to prevent silent unlocking, even by admins.
+We also display a window that explains why it should be unlocked before, to train the user not to unlock it unprompted.
+We use the Windows CNG API for that, using `PassportKeyStorageProvider`, so the key can't be used without Windows Hello.
+
+The DEK is symmetric. It is stored encrypted on the disk, but it is deciphered in Windows VBS.
+This way, even admins cannot intercept it.
+
+Finally, the database is encrypted and decrypted using the DEK.
+Once decrypted by the DEK, it is in the classic memory.
+Omni's process must then forbid other processes from reading its memory, since it contains API credentials.
+Also, we should use all the possible compiler flag to make process injection harder, for admins.
+
+As we want Windows Hello protection, the process must run in the same Windows account as the user.
+Consequently, we cannot use a service account.
